@@ -6,19 +6,19 @@ import Spinner from "./Spinner";
 
 export default function JobItemContent() {
   const activeId = useActiveId();
-  const { jobItemExpanded, isContentLoading } = useItemId(activeId);
+  const { jobItemExpanded, isLoading } = useItemId(activeId);
+
+  if (isLoading) {
+    return <LoadingContentJob />;
+  }
 
   if (!jobItemExpanded) {
     return <EmptyJobContent />;
   }
 
-  if (isContentLoading) {
-    return <LoadingContentJob />;
-  }
-
   return (
     <section className="job-details">
-      {!isContentLoading && (
+      {!isLoading && (
         <div>
           <img src={jobItemExpanded.coverImgURL} alt="#" />
 
@@ -76,7 +76,7 @@ export default function JobItemContent() {
                 </p>
               </div>
               <ul className="qualifications__list">
-                {jobItemExpanded.qualifications.map((qualification) => (
+                {jobItemExpanded.qualifications.map((qualification: string) => (
                   <li key={qualification} className="qualifications__item">
                     {qualification}
                   </li>
@@ -92,7 +92,7 @@ export default function JobItemContent() {
                 </p>
               </div>
               <ul className="reviews__list">
-                {jobItemExpanded.reviews.map((review) => (
+                {jobItemExpanded.reviews.map((review: string) => (
                   <li key={review} className="reviews__item">
                     {review}
                   </li>

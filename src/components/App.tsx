@@ -14,10 +14,13 @@ import PaginationControls from "./PaginationControls";
 import ResultsCount from "./ResultsCount";
 import SortingControls from "./SortingControls";
 import { useJobItems } from "../hooks/useJobItmes";
+import { useDebounce } from "../hooks/useDebounce";
 
 function App() {
   const [searchText, setSearchText] = useState("");
-  const { jobItems, isLoading } = useJobItems(searchText);
+  const debounceSearchText = useDebounce(searchText, 700);
+
+  const { jobItems, isLoading, resultsCount } = useJobItems(debounceSearchText);
 
   return (
     <>
@@ -33,7 +36,7 @@ function App() {
       <Container>
         <Sidebar>
           <SidebarTop>
-            <ResultsCount />
+            <ResultsCount resultsCount={resultsCount} />
             <SortingControls />
           </SidebarTop>
 

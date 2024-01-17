@@ -1,5 +1,6 @@
 import toast from "react-hot-toast";
 
+// handle the error to make it always a string
 export const handleError = (error: unknown) => {
   //we have to make sure to extract a string message from the error before we toast it
   let message: string;

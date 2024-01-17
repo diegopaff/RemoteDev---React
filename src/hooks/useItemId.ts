@@ -1,6 +1,7 @@
 import { API_BASE_URL } from "../lib/constants";
 import { jobItemExpanded } from "../lib/types";
 import { useQuery } from "@tanstack/react-query";
+import { handleError } from "../lib/utils";
 
 //**---------------Using React Query-------- */
 type jobItemApiResponse = {
@@ -11,10 +12,12 @@ type jobItemApiResponse = {
 //create a callback function that fetches the api
 const fetchJobItem = async (id: number): Promise<jobItemApiResponse> => {
   const res = await fetch(`${API_BASE_URL}/${id}`);
+
   if (!res.ok) {
     const errorData = await res.json();
-    throw new Error(errorData.descriptrion);
+    throw new Error(errorData.description);
   }
+
   const data = await res.json();
   return data;
 };
@@ -28,19 +31,14 @@ export function useItemId(id: number | null) {
       refetchOnWindowFocus: false,
       retry: false,
       enabled: Boolean(id),
-      onError: (error) => {
-        console.log(error);
-      },
+      onError: handleError,
     }
   );
 
-  const jobItem = data?.jobItem;
-  const isLoading = isInitialLoading;
-
   return {
-    jobItemExpanded: jobItem,
-    isLoading,
-  };
+    jobItemExpanded: data?.jobItem,
+    isLoading: isInitialLoading,
+  } as const;
 }
 
 //**-----------Using normal fetching-------- */

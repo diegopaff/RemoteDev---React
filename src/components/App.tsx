@@ -44,6 +44,7 @@ function App() {
   );
 
   // event handlres / actions
+
   const handleChangePage = (direction: pageDirection) => {
     if (direction === "next") {
       setCurrentPage((prev) => prev + 1);

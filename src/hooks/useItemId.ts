@@ -1,16 +1,12 @@
 import { API_BASE_URL } from "../lib/constants";
-import { jobItemExpanded } from "../lib/types";
+import { jobItemApiResponse } from "../lib/types";
 import { useQuery } from "@tanstack/react-query";
 import { handleError } from "../lib/utils";
 
 //**---------------Using React Query-------- */
-type jobItemApiResponse = {
-  public: boolean;
-  jobItem: jobItemExpanded;
-};
 
 //create a callback function that fetches the api
-const fetchJobItem = async (id: number): Promise<jobItemApiResponse> => {
+export const fetchJobItem = async (id: number): Promise<jobItemApiResponse> => {
   const res = await fetch(`${API_BASE_URL}/${id}`);
 
   if (!res.ok) {

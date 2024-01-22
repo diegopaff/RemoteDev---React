@@ -22,3 +22,8 @@ export type jobItemExpanded = jobItem & {
 export type sortBy = "relevant" | "recent";
 
 export type pageDirection = "next" | "previous";
+
+export type jobItemApiResponse = {
+  public: boolean;
+  jobItem: jobItemExpanded;
+};

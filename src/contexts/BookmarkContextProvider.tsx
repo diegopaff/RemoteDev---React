@@ -10,7 +10,7 @@ type BookmarkContextProviderProps = {
 type BookmarkContext = {
   bookmarkedIds: number[];
   handleToggleBookmark: (id: number) => void;
-  //bookMarkedJobItems: jobItemExpanded[];
+  bookMarkedJobItems: jobItemExpanded[];
   isLoading: boolean;
 };
 
